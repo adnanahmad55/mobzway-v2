@@ -1,98 +1,13 @@
 "use client";
 import Image from "next/image";
 import BannerForm from "../components/BannerForm";
-// import { headers } from "next/headers";
-import { useEffect, useState } from "react";
-
-// export const metadata = {
-//     title: "Mobzway - Online Gaming Software Development Company",
-//     description: "Mobzway is one of the top gaming software development company in India. We are custom poker, casino, rummy, Ludo, and Teen Patti gaming software providers.",
-//     keywords: "Gaming Software Development, Gaming Software Developers, Gaming Software Providers",
-//     openGraph: {
-//         title: "Mobzway - Online Gaming Software Development Company | Gaming Software Provider",
-//         description: "Mobzway is one of the top gaming software development company in India. We are custom poker, casino, rummy, Ludo, and Teen Patti gaming software providers.",
-//         url: "https://www.mobzway.com/",
-//         siteName: "Mobzway Technologies",
-//         images: [
-//             {
-//                 url: "https://www.mobzway.com/assets/images/homepage_banner.avif",
-//                 width: 815,
-//                 height: 821,
-//                 alt: "mobzway",
-//                 type: "image/jpg",
-//             },
-//         ],
-//     },
-//     twitter: {
-//         card: "summary_large_image",
-//         title: "Mobzway - Online Gaming Software Development Company | Gaming Software Provider",
-//         description: "Mobzway is one of the top gaming software development company in India. We are custom poker, casino, rummy, Ludo, and Teen Patti gaming software providers.",
-//         site: "@mobzway",
-//         creator: "@mobzway",
-//         images: ["https://www.mobzway.com/assets/images/homepage_banner.avif"],
-//     },
-//     alternates: {
-//         canonical: "https://www.mobzway.com/",
-//     },
-// };
 
 export default function AfHomepage() {
 
-    // let country = "Unknown";
-
-    // try {
-    //     const headersList = headers();
-    //     country =
-    //         headersList.get("x-vercel-ip-country") ||
-    //         headersList.get("cf-ipcountry") ||
-    //         "Unknown";
-    // } catch (e) {
-    //     console.log("Headers not available in dev");
-    // }
-
-    const [country, setCountry] = useState("India");
-
-    const getCountryByIP = async () => {
-    try {
-      const res = await fetch("https://ipapi.co/json/");
-      const data = await res.json();
-      setCountry(data.country_name || "Unknown");
-    } catch (err) {
-      setCountry("Unknown");
-    }
-  };
-
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      getCountryByIP();
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-
-        try {
-          const res = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-          );
-          const data = await res.json();
-          setCountry(data.countryName || "Unknown");
-        } catch {
-          getCountryByIP();
-        }
-      },
-      () => {
-        
-        getCountryByIP();
-      }
-    );
-  }, []);
-
+    const country = "Nigeria";
 
     return (
         <>
-
             <style
                 dangerouslySetInnerHTML={{
                     __html:
@@ -135,7 +50,9 @@ export default function AfHomepage() {
                                                         alt="Poker Game"
                                                     />
                                                     <div className="hero__description">
-                                                        Developing an interactive and customizable Bingo game for {country} players. Our Bingo games are interactive, customizable and available on a multitude of cross-platform devices to give players the best possible user experience.
+                                                        Developing an interactive and customizable Bingo game for Nigerian players. Our 
+Bingo games are interactive, customizable and available on a multitude of cross-
+platform devices to give players the best possible user experience.
 
                                                     </div>
                                                 </div>
@@ -159,8 +76,7 @@ export default function AfHomepage() {
                                                         alt="Rummy Game"
                                                     />
                                                     <div className="hero__description">
-                                                        Delivering multiple options for developing-quality Keno games for the {country}n marketplace. Our Keno game options include safe, reliable, fast and aesthetically pleasing game images in Web and Mobile versions.
-
+                                                        Delivering multiple options for developing-quality Keno games for the Nigerian marketplace. Our Keno game options include safe, reliable, fast and aesthetically pleasing game images in Web and Mobile versions. 
                                                     </div>
                                                 </div>
                                                 <div className="col-md-5 d-none d-md-block">
@@ -183,7 +99,9 @@ export default function AfHomepage() {
                                                         alt="Ludo Game"
                                                     />
                                                     <div className="hero__description">
-                                                        A comprehensive online betting service providing all the tools required for a successful betting environment. A comprehensive real-time odds service, multi-sport betting coverage and a smooth, automatic system for all sportsbook operations.
+                                                        A comprehensive online betting service providing all the tools required for a successful 
+betting environment. A comprehensive real-time odds service, multi-sport betting 
+coverage and a smooth, automatic system for all sportsbook operations. 
                                                     </div>
                                                 </div>
                                                 <div className="col-md-5 d-none d-md-block">
@@ -287,42 +205,12 @@ export default function AfHomepage() {
                         <div className="hero-submit__description">
                             Fill in the form to contact us and expand your product offering.
                         </div>
-                        {/*?php include 'banner-form.php' ?*/}
                         <BannerForm />
 
                     </div>
                 </div>
             </div>
-            {/* <section class="banner position-relative pokers"
-    style="background-image: url('/assets/images/homepage_banner.avif');background-color: rgba(0, 0, 0, 0.3);background-blend-mode: overlay;">
-    
-    <div class="wel_come_container">
-  <h1 class="welcome_text">
-      Best Poker, Rummy, Casino Gaming Solution
-  </h1>
-  <p class="sml_text">
-      Mobzway offers all sorts of white label and customized solutions and possible variations of Poker, Rummy,
-      Casino, Teen Patti, Ludo, Roulette, Blackjack, Baccarat, and many more for Android and iOS and HTML5.
-  </p>
-  <div class="btn_outer">
-      <button class="contact_btn btn" data-toggle="modal" data-target="#requestQoute">Request A Quote</button>
-  </div>
-    </div>
-    <div class="banner_bottom_info gameplushmb" style="background-color: rgba(15, 16, 15, 0.8);">
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-md-11">
-              <div class="bottom_header">
-                  <div class="bottom_text">
-                      Planning to start an Online Poker, Rummy and Casino game? Or need to improve your
-                      existing gaming platform, then you have landed at the right place!
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-    </div>
-</section> */}
+            
             <section className="bg-light pb-2 bg-lightnew gameplushmb">
                 <div className="container c-1">
                     <div className="row justify-content-center">
@@ -399,9 +287,7 @@ export default function AfHomepage() {
 
 
                     </p>
-                    {/* <p className="content" style={{ color: "#000", fontSize: 17 }}>
-            With a successful history and experience in the gaming industry, Mobzway Technologies has accomplished the feat of rolling out more than 500 games, catering to the needs of over 300 happy clients worldwide, and maintaining a client retention rate of 97%, which is the reason why we are a technology partner UK and international iGaming operators can rely ‍‌‍‍‌‍‌‍‍‌on.
-          </p> */}
+                    
                 </div>
             </section>
             <section className="product-sec">
@@ -415,10 +301,6 @@ export default function AfHomepage() {
                             <div className="overflow-hidden w-100 game_icon_sec">
                                 <a href="javascript:void(0)" className="d-block">
                                     <div className="overflow-hidden w-100">
-                                        {/* <div class="overlay_item"></div>
-                      <div class="ofr_title">
-                          <p>Poker</p>
-                      </div> */}
                                         <img
                                             src="/assets/images/Products/af/game-1.webp"
                                             width={1600}
@@ -426,36 +308,10 @@ export default function AfHomepage() {
                                             className=""
                                             alt="poker bg"
                                         />
-                                        {/* <img src="/assets/images/poker_bg.avif" width="1600" height="900"
-                          class="img-lazy" alt="poker bg"> */}
-                                        {/* <div class="game_icons">
-                          <div class="anim_one"><img src="/assets/images/poker_icon.png"
-                                  class="img-lazy" width="1600" height="900" alt="poker icon"></div>
-                      </div> */}
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        {/* <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6 mb-3">
-          <div class="pro_item">
-
-              <a href="<?= $baseurl ?>rummy-software/" class="product_page_link">
-                  <div class="pro_inner">
-                      <div class="overlay_item"></div>
-                      <div class="ofr_title">
-                          <p>Rummy</p>
-                      </div>
-                      <img src="/assets/images/rummy_background.avif" width="1600"
-                          height="900" class="img-lazy" alt="rummy bg">
-                      <div class="game_icons">
-                          <div class="anim_five"><img src="/assets/images/rummy_icon.png"
-                                  class="img-lazy" width="1600" class="img-lazy" height="900" alt="rummy icon">
-                          </div>
-                      </div>
-                  </div>
-              </a>
-          </div>
-      </div> */}
                         <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6 mb-3">
                             <div className="overflow-hidden w-100 game_icon_sec">
                                 <a href="javascript:void(0)" className="d-block">
@@ -490,7 +346,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/* About Gaming Platfrom */}
+            
             <section
                 className="gaming_platform gaming_platformAdd gaming_platform_block"
                 style={{
@@ -615,7 +471,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/*-------------How We Can Help------------------*/}
+            
             <section
                 className="how_we_canhelp"
                 style={{
@@ -688,7 +544,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/*-------------How We Can Help------------------*/}
+            
             <section
                 className="engagement_models"
                 style={{
@@ -738,7 +594,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/*-------------why choose us------------------*/}
+            
             <section
                 className="why_choose why_choose_home position-relative"
                 style={{

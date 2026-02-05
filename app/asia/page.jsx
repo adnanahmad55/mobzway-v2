@@ -1,98 +1,13 @@
 "use client";
 import Image from "next/image";
 import BannerForm from "../components/BannerForm";
-// import { headers } from "next/headers";
-import { useEffect, useState } from "react";
-
-// export const metadata = {
-//     title: "Mobzway - Online Gaming Software Development Company",
-//     description: "Mobzway is one of the top gaming software development company in India. We are custom poker, casino, rummy, Ludo, and Teen Patti gaming software providers.",
-//     keywords: "Gaming Software Development, Gaming Software Developers, Gaming Software Providers",
-//     openGraph: {
-//         title: "Mobzway - Online Gaming Software Development Company | Gaming Software Provider",
-//         description: "Mobzway is one of the top gaming software development company in India. We are custom poker, casino, rummy, Ludo, and Teen Patti gaming software providers.",
-//         url: "https://www.mobzway.com/",
-//         siteName: "Mobzway Technologies",
-//         images: [
-//             {
-//                 url: "https://www.mobzway.com/assets/images/homepage_banner.avif",
-//                 width: 815,
-//                 height: 821,
-//                 alt: "mobzway",
-//                 type: "image/jpg",
-//             },
-//         ],
-//     },
-//     twitter: {
-//         card: "summary_large_image",
-//         title: "Mobzway - Online Gaming Software Development Company | Gaming Software Provider",
-//         description: "Mobzway is one of the top gaming software development company in India. We are custom poker, casino, rummy, Ludo, and Teen Patti gaming software providers.",
-//         site: "@mobzway",
-//         creator: "@mobzway",
-//         images: ["https://www.mobzway.com/assets/images/homepage_banner.avif"],
-//     },
-//     alternates: {
-//         canonical: "https://www.mobzway.com/",
-//     },
-// };
 
 export default function AfHomepage() {
 
-    // let country = "Unknown";
-
-    // try {
-    //     const headersList = headers();
-    //     country =
-    //         headersList.get("x-vercel-ip-country") ||
-    //         headersList.get("cf-ipcountry") ||
-    //         "Unknown";
-    // } catch (e) {
-    //     console.log("Headers not available in dev");
-    // }
-
-    const [country, setCountry] = useState("India");
-
-    const getCountryByIP = async () => {
-        try {
-            const res = await fetch("https://ipapi.co/json/");
-            const data = await res.json();
-            setCountry(data.country_name || "Unknown");
-        } catch (err) {
-            setCountry("Unknown");
-        }
-    };
-
-    useEffect(() => {
-        if (!navigator.geolocation) {
-            getCountryByIP();
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                const { latitude, longitude } = position.coords;
-
-                try {
-                    const res = await fetch(
-                        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-                    );
-                    const data = await res.json();
-                    setCountry(data.countryName || "Unknown");
-                } catch {
-                    getCountryByIP();
-                }
-            },
-            () => {
-
-                getCountryByIP();
-            }
-        );
-    }, []);
-
+    const country = "Thailand";
 
     return (
         <>
-
             <style
                 dangerouslySetInnerHTML={{
                     __html:
@@ -290,42 +205,12 @@ export default function AfHomepage() {
                         <div className="hero-submit__description">
                             Fill in the form to contact us and expand your product offering.
                         </div>
-                        {/*?php include 'banner-form.php' ?*/}
                         <BannerForm />
 
                     </div>
                 </div>
             </div>
-            {/* <section class="banner position-relative pokers"
-    style="background-image: url('/assets/images/homepage_banner.avif');background-color: rgba(0, 0, 0, 0.3);background-blend-mode: overlay;">
-    
-    <div class="wel_come_container">
-  <h1 class="welcome_text">
-      Best Poker, Rummy, Casino Gaming Solution
-  </h1>
-  <p class="sml_text">
-      Mobzway offers all sorts of white label and customized solutions and possible variations of Poker, Rummy,
-      Casino, Teen Patti, Ludo, Roulette, Blackjack, Baccarat, and many more for Android and iOS and HTML5.
-  </p>
-  <div class="btn_outer">
-      <button class="contact_btn btn" data-toggle="modal" data-target="#requestQoute">Request A Quote</button>
-  </div>
-    </div>
-    <div class="banner_bottom_info gameplushmb" style="background-color: rgba(15, 16, 15, 0.8);">
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-md-11">
-              <div class="bottom_header">
-                  <div class="bottom_text">
-                      Planning to start an Online Poker, Rummy and Casino game? Or need to improve your
-                      existing gaming platform, then you have landed at the right place!
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-    </div>
-</section> */}
+            
             <section className="bg-light pb-2 bg-lightnew gameplushmb">
                 <div className="container c-1">
                     <div className="row justify-content-center">
@@ -402,9 +287,7 @@ export default function AfHomepage() {
 
 
                     </p>
-                    {/* <p className="content" style={{ color: "#000", fontSize: 17 }}>
-            With a successful history and experience in the gaming industry, Mobzway Technologies has accomplished the feat of rolling out more than 500 games, catering to the needs of over 300 happy clients worldwide, and maintaining a client retention rate of 97%, which is the reason why we are a technology partner UK and international iGaming operators can rely ‍‌‍‍‌‍‌‍‍‌on.
-          </p> */}
+                    
                 </div>
             </section>
             <section className="product-sec">
@@ -418,10 +301,6 @@ export default function AfHomepage() {
                             <div className="overflow-hidden w-100 game_icon_sec">
                                 <a href="javascript:void(0)" className="d-block">
                                     <div className="overflow-hidden w-100">
-                                        {/* <div class="overlay_item"></div>
-                      <div class="ofr_title">
-                          <p>Poker</p>
-                      </div> */}
                                         <img
                                             src="/assets/images/Products/af/game-3.png"
                                             width={1600}
@@ -429,36 +308,10 @@ export default function AfHomepage() {
                                             className=""
                                             alt="poker bg"
                                         />
-                                        {/* <img src="/assets/images/poker_bg.avif" width="1600" height="900"
-                          class="img-lazy" alt="poker bg"> */}
-                                        {/* <div class="game_icons">
-                          <div class="anim_one"><img src="/assets/images/poker_icon.png"
-                                  class="img-lazy" width="1600" height="900" alt="poker icon"></div>
-                      </div> */}
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        {/* <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6 mb-3">
-          <div class="pro_item">
-
-              <a href="<?= $baseurl ?>rummy-software/" class="product_page_link">
-                  <div class="pro_inner">
-                      <div class="overlay_item"></div>
-                      <div class="ofr_title">
-                          <p>Rummy</p>
-                      </div>
-                      <img src="/assets/images/rummy_background.avif" width="1600"
-                          height="900" class="img-lazy" alt="rummy bg">
-                      <div class="game_icons">
-                          <div class="anim_five"><img src="/assets/images/rummy_icon.png"
-                                  class="img-lazy" width="1600" class="img-lazy" height="900" alt="rummy icon">
-                          </div>
-                      </div>
-                  </div>
-              </a>
-          </div>
-      </div> */}
                         <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6 mb-3">
                             <div className="overflow-hidden w-100 game_icon_sec">
                                 <a href="javascript:void(0)" className="d-block">
@@ -493,7 +346,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/* About Gaming Platfrom */}
+            
             <section
                 className="gaming_platform gaming_platformAdd gaming_platform_block"
                 style={{
@@ -618,7 +471,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/*-------------How We Can Help------------------*/}
+            
             <section
                 className="how_we_canhelp"
                 style={{
@@ -646,27 +499,27 @@ export default function AfHomepage() {
                                 className="help_cotnent text-center"
                                 style={{ paddingBottom: 15 }}
                             >
-                                Mobzway's know-how in providing customized gaming solutions has put them on the stage of one of the top gaming software developers in the world.
+                                Mobzway is a reputable global gaming software development company, which provides personalized gaming solutions for the {country} market.
 
                             </div>
                             <div
                                 className="help_cotnent text-center"
                                 style={{ paddingBottom: 15 }}
                             >
-                                We take care of every single detail of the game production process from start to finish including the in-house development, content integration, and even the technical issues, leaving you with the marketing and player base expansion to do.
+                               Our skill set covers every aspect of game development, secure system architecture, and smooth game content integration; thus it is possible for you to direct your efforts toward marketing, branding, and user acquisition.
                             </div>
                             <div
                                 className="help_cotnent text-center"
                                 style={{ paddingBottom: 35 }}
                             >
-                                Our team of experts is versed in the making of in-demand games like Ludo, Poker-style games, Rummy-style games, Teen Patti, and others that fall into the category of skill and entertainment games for the web, Android, iOS, and HTML5 platforms.
+                               We possess a vast amount of experience in the skill-based and entertainment-driven games category developing.
 
                             </div>
                             <div
                                 className="help_cotnent text-center"
                                 style={{ paddingBottom: 15 }}
                             >
-                                We only ask for the game concept and basic specifications from the clients. Our professionals then innovate your imagination into a fully functional and ready-to-market game within the stipulated period.
+                               Ludo, card games, board games, Poker-style games, Rummy-style games, Teen Patti, and casino-style gaming products for web, mobile, and HTML5 platforms are some of the major developments we did.
 
                             </div>
 
@@ -674,7 +527,21 @@ export default function AfHomepage() {
                                 className="help_cotnent text-center"
                                 style={{ paddingBottom: 15 }}
                             >
-                                Wondering how Mobzway would be able to assist you in your game design, business establishment, and player growth in {country} and other countries?
+                               All the gaming specialists of ours just need your game concept and core requirements including, features, and functionality besides.
+
+                            </div>
+                            <div
+                                className="help_cotnent text-center"
+                                style={{ paddingBottom: 15 }}
+                            >
+                                                           <div
+                                className="help_cotnent text-center"
+                                style={{ paddingBottom: 15 }}
+                            >
+                               All the gaming specialists of ours just need your game concept and core requirements including, features, and functionality besides.
+                               Do you want to see how Mobzway can assist in your product planning, business establishment, and customer growth in {country} and overseas markets? just give us a call.
+
+                            </div>
 
                             </div>
 
@@ -691,7 +558,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/*-------------How We Can Help------------------*/}
+            
             <section
                 className="engagement_models"
                 style={{
@@ -741,7 +608,7 @@ export default function AfHomepage() {
                     </div>
                 </div>
             </section>
-            {/*-------------why choose us------------------*/}
+            
             <section
                 className="why_choose why_choose_home position-relative"
                 style={{
@@ -787,33 +654,33 @@ export default function AfHomepage() {
                                     data-aos-duration={1000}
                                 >
                                     <li>
-                                        Product designed by experienced gaming professionals who know the industry well.
+                                        Products made by professional gaming experts with both local and global knowledge
 
                                     </li>
                                     <li>
-                                        Experienced programmers aimed at developing high-quality games that are reliable and engaging.
+                                        Programmers that are very skilled and their work is focused on performance, stability, and excellent game quality
 
                                     </li>
                                     <li>
-                                        Cross-platform solutions supporting Web, Mobile, PC, and Mac
+                                        Gaming solutions that can be used on Web, Mobile, PC, and Mac
 
                                     </li>
-                                    <li>Easy integration with popular and {country}-supporting payment systems
+                                    <li>Popular and regionally-friendly payment gateway integration is supported
 
                                     </li>
-                                    <li>Products with support in English and {country}n languages offered to {country}n players
+                                    <li>Products are launched with both Thai and English language support
                                     </li>
                                     <li>
-                                        Monitoring and Support Services 24×7 for availability of up to 99.99 percent
+                                        To make sure the platform is always up and running, there is constant monitoring and technical support that is available 24×7
 
                                     </li>
-                                    <li>Cost-effective and time-efficient gaming development solutions
+                                    <li>Development of games that is both cost-effective and time-efficient
 
                                     </li>
-                                    <li>Enhanced safety features to prevent fraud, hacking, and cyber attacks
+                                    <li>Highly advanced security measures to prevent fraud and cyber attacks
 
                                     </li>
-                                    <li>Free Business Consultation to enhance {country}n gamblers and startups
+                                    <li>Business consulting services free of charge to help game operators and startups
                                     </li>
 
                                 </ul>

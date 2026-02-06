@@ -14,11 +14,11 @@ const countryMap = {
 
 // 2. CONFIGURATION: Hreflang Codes
 const countryLocales = {
-    in: "en-IN",
-    bd: "en-BD",
-    uk: "en-GB",
-    us: "en-US",
-    ae: "en-AE",
+    in: "en-in",
+    bd: "en-bd",
+    uk: "en-gb",
+    us: "en-us",
+    ae: "en-ae",
     asia: "en-asia",
     africa: "en-africa",
     default: "x-default"

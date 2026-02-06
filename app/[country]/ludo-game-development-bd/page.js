@@ -12,7 +12,7 @@ const countryMap = {
     default: "Global"
 };
 
-// 2. CONFIGURATION: Hreflang Codes (SEO Fix)
+// 2. CONFIGURATION: Hreflang Codes
 const countryLocales = {
     in: "en-IN",
     bd: "en-BD",
@@ -24,32 +24,43 @@ const countryLocales = {
     default: "x-default"
 };
 
-// --- DYNAMIC METADATA (SEO & HREFLANG FIX) ---
+// --- DYNAMIC METADATA (FIXED: ONLY SHOW CURRENT COUNTRY LOCALE) ---
 export async function generateMetadata(props) {
     const params = await props.params;
     const countryCode = params.country || 'bd';
-    const countryName = countryMap[countryCode] || "Bangladesh";
+    
+    // Country ka pura naam (Title/Desc ke liye)
+    const countryNames = {
+        bd: "Bangladesh",
+        in: "India",
+        us: "USA",
+        uk: "United Kingdom",
+        ae: "UAE"
+    };
+    const countryName = countryNames[countryCode] || "Bangladesh";
 
-    // URL Logic
     const baseUrl = "https://www.mobzway.com";
-    const pageSlug = "ludo-game-development";
+    const pageSlug = "sportsbook-software-development";
 
-    // Auto-generate Hreflang tags
-    const languageAlternates = {};
-    Object.keys(countryLocales).forEach((code) => {
-        if (code !== 'default') {
-            languageAlternates[countryLocales[code]] = `${baseUrl}/${code}/${pageSlug}`;
-        }
-    });
-    languageAlternates['x-default'] = `${baseUrl}/${pageSlug}`;
+    // --- IMPORTANT CHANGE START ---
+    // Hum yahan hardcode kar rahe hain ki languages object mein sirf current country ho.
+    // Baaki countries ka data hum add hi nahi karenge.
+    
+    const currentLocale = `en-${countryCode.toUpperCase()}`; // output: en-BD
+    const currentUrl = `${baseUrl}/${countryCode}/${pageSlug}`;
+
+    const languages = {};
+    languages[currentLocale] = currentUrl; 
+    // Ab languages object aisa dikhega: { 'en-BD': '.../bd/...' }
+    // --- IMPORTANT CHANGE END ---
 
     return {
-        title: `Ludo game development company in ${countryName} | Ludo Services`,
-        description: `Mobzway is Best Ludo game development company in ${countryName} offering multiplayer Ludo apps with real-time gameplay, secure wallets, and custom features.`,
-        keywords: [`Ludo game development company in ${countryName}, Ludo game development service in ${countryName}`],
+        title: `Sportsbook software development company in ${countryName}`,
+        description: `Top sportsbook software development company in ${countryName} offering secure betting platforms...`,
+        keywords: [`Sportsbook software development company in ${countryName}`],
         alternates: {
-            canonical: `${baseUrl}/${countryCode}/${pageSlug}`,
-            languages: languageAlternates,
+            canonical: currentUrl,
+            languages: languages, // Yahan humne filter kiya hua object pass kiya hai
         },
     };
 }
@@ -718,7 +729,7 @@ export default async function LudoGameDevelopment(props) {
                 </div>
             </section>
 
-            {/* SOLUTIONS SECTION (WITH IMAGE FIX) */}
+            {/* SOLUTIONS SECTION (WITH IMAGE FIX AND ALIGNMENT) */}
             <section className="solutions">
                 <div className="container c-1">
                     <div className="col-md-12 text-center">
@@ -729,16 +740,15 @@ export default async function LudoGameDevelopment(props) {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="yellow">Mobile-Friendly </span>{" "}
-                                <span className="black"> Ludo Games for {country}</span>
+                                <span className="yellow">{country} Operators' </span>{" "}
+                                <span className="black"> Reason to Choose Mobzway</span>
                             </h2>
                         </div>
                     </div>
                     <div className="row row1 align-items-center">
                         <div className="col-md-6 col1 text-center">
-                            {/* IMAGE FIX APPLIED HERE */}
                             <img
-                                alt="Mobile Friendly Ludo Game"
+                                alt="Reason to choose Mobzway"
                                 src="/assets/images/rummy-game-development/rummy-game-development-solutions 1.webp"
                                 className="wow bounceInLeft my-image img-lazy"
                                 data-wow-duration="2s"
@@ -746,9 +756,9 @@ export default async function LudoGameDevelopment(props) {
                                     visibility: "visible",
                                     animationDuration: "2s",
                                     animationName: "none",
-                                    maxWidth: "100%",  // Ensures it doesn't overflow
-                                    width: "450px",    // Restricts width like your screenshot
-                                    height: "auto"     // Maintains aspect ratio
+                                    maxWidth: "100%",   // Ensures it doesn't overflow
+                                    width: "450px",     // Limits width to match design
+                                    height: "auto"      // Maintains aspect ratio
                                 }}
                             />
                         </div>
@@ -762,19 +772,28 @@ export default async function LudoGameDevelopment(props) {
                             }}
                         >
                             <p className="para-1">
-                                The majority of gamers in {country} access their games through mobile devices; therefore, our Ludo applications introduce:
-                                <br /><br />
-                                Super fast load time
-                                <br /><br />
-                                Minimized architecture
-                                <br /><br />
-                                Uniform operations on all devices
-                                <br /><br />
-                                Nice themes & animations
-                                <br /><br />
-                                User-friendly interface
-                                <br /><br />
-                                Our games work perfectly even on slow internet connections.
+                                Over a decade of gaming tech experience
+                                <br />
+                                <br />
+                                Completely customizable platform
+                                <br />
+                                <br />
+                                Robust security posture
+                                <br />
+                                <br />
+                                Cost effective pricing models
+                                <br />
+                                <br />
+                                Team of support available full-time
+                                <br />
+                                <br />
+                                Quick rolling out and upgrades
+                                <br />
+                                <br />
+                                Legally supporting infrastructures
+                                <br />
+                                <br />
+                                No matter if you are a long-time operator or a startup, our sportsbook software in {country} is your partner for profitable and sustainable growth.
                             </p>
                         </div>
                     </div>

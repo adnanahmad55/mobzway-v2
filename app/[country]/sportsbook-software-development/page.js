@@ -12,7 +12,7 @@ const countryMap = {
     default: "Global"
 };
 
-// 2. CONFIGURATION: Hreflang Codes (SEO Fix)
+// 2. CONFIGURATION: Hreflang Codes
 const countryLocales = {
     in: "en-IN",
     bd: "en-BD",
@@ -24,7 +24,7 @@ const countryLocales = {
     default: "x-default"
 };
 
-// --- DYNAMIC METADATA (SEO & HREFLANG FIX) ---
+// --- DYNAMIC METADATA (SEO FIX: ONLY EN-BD) ---
 export async function generateMetadata(props) {
     const params = await props.params;
     const countryCode = params.country || 'bd';
@@ -34,14 +34,15 @@ export async function generateMetadata(props) {
     const baseUrl = "https://www.mobzway.com";
     const pageSlug = "sportsbook-software-development";
 
-    // Auto-generate Hreflang tags
+    // --- FIX: SIRF CURRENT LANGUAGE (en-BD) HI AAYEGA ---
     const languageAlternates = {};
-    Object.keys(countryLocales).forEach((code) => {
-        if (code !== 'default') {
-            languageAlternates[countryLocales[code]] = `${baseUrl}/${code}/${pageSlug}`;
-        }
-    });
-    languageAlternates['x-default'] = `${baseUrl}/${pageSlug}`;
+    
+    // Sirf jo country code URL me hai (jaise 'bd'), bas usi ka hreflang banega
+    const currentLocale = countryLocales[countryCode];
+    
+    if (currentLocale) {
+        languageAlternates[currentLocale] = `${baseUrl}/${countryCode}/${pageSlug}`;
+    }
 
     return {
         title: `Sportsbook software development company in ${countryName}`,
@@ -49,21 +50,19 @@ export async function generateMetadata(props) {
         keywords: [`Sportsbook software development company in ${countryName}`],
         alternates: {
             canonical: `${baseUrl}/${countryCode}/${pageSlug}`,
-            languages: languageAlternates,
+            languages: languageAlternates, // Ab isme sirf ek hi language hogi (en-BD)
         },
     };
 }
 
-
 export default async function SportsbookSoftwareDevelopment(props) {
     const params = await props.params;
     const countryCode = params.country || 'bd';
-   
+    
     const countryName = countryMap[countryCode] || "Bangladesh";
 
     return (
         <>
-
             <section
                 className="banner pokers banner_lth position-relative banner-texas"
                 style={{
@@ -187,7 +186,7 @@ export default async function SportsbookSoftwareDevelopment(props) {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="yellow">Why Choose Mobzway as your Preferred Sportsbook Software  </span>{" "}
+                                <span className="yellow">Why Choose Mobzway as your Preferred Sportsbook Software  </span>{" "}
                                 <span className="black"> Development Company in {countryName}?</span>
                             </h2>
                         </div>
@@ -237,11 +236,11 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".4s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -271,11 +270,11 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -303,11 +302,11 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                 </div>
 
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -586,7 +585,7 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                 <li>
                                     <b>Server:</b> AWS, Google Cloud, Azure
                                 </li>
-                                <li><b>Real-Time Engines:</b>  WebSocket, Socket.io, WebRTC</li>
+                                <li><b>Real-Time Engines:</b>  WebSocket, Socket.io, WebRTC</li>
                                 <li>
                                     <b>Security:</b> AES/SSL encryption, IP blocking, tokenized sessions.
                                 </li>
@@ -751,11 +750,11 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".4s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -776,11 +775,11 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -805,11 +804,11 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                 </div>
 
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -829,11 +828,11 @@ export default async function SportsbookSoftwareDevelopment(props) {
                                 </div>
 
                                 {/* <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -1064,7 +1063,7 @@ export default async function SportsbookSoftwareDevelopment(props) {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="black_bg_head_yellow">Start your Sportsbook  </span>{" "}
+                                <span className="black_bg_head_yellow">Start your Sportsbook  </span>{" "}
                                 <span className="black_bg_head_white">
                                     Business in {countryName} Now
                                 </span>

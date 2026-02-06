@@ -1,34 +1,68 @@
-import { getCountryName } from '@/app/lib/country';
-import React from 'react'
+import React from 'react';
 
-export async function generateMetadata() {
-    const country = getCountryName();
+// 1. CONFIGURATION: Country Names Mapping
+const countryMap = {
+    in: "India",
+    bd: "Bangladesh",
+    uk: "United Kingdom",
+    us: "USA",
+    ae: "UAE",
+    asia: "Asia",
+    africa: "Africa",
+    default: "Global"
+};
+
+// 2. CONFIGURATION: Hreflang Codes (SEO Fix)
+const countryLocales = {
+    in: "en-IN",
+    bd: "en-BD",
+    uk: "en-GB",
+    us: "en-US",
+    ae: "en-AE",
+    asia: "en-asia",
+    africa: "en-africa",
+    default: "x-default"
+};
+
+// --- DYNAMIC METADATA (SEO & HREFLANG FIX) ---
+export async function generateMetadata(props) {
+    const params = await props.params;
+    const countryCode = params.country || 'bd';
+    const countryName = countryMap[countryCode] || "Bangladesh";
+
+    // URL Logic
+    const baseUrl = "https://www.mobzway.com";
+    const pageSlug = "ludo-game-development";
+
+    // Auto-generate Hreflang tags
+    const languageAlternates = {};
+    Object.keys(countryLocales).forEach((code) => {
+        if (code !== 'default') {
+            languageAlternates[countryLocales[code]] = `${baseUrl}/${code}/${pageSlug}`;
+        }
+    });
+    languageAlternates['x-default'] = `${baseUrl}/${pageSlug}`;
 
     return {
-        title: `Ludo game development company in ${country} | Ludo Services`,
-        description: `Mobzway is Best Ludo game development company in ${country} offering multiplayer Ludo apps with real-time gameplay, secure wallets, and custom features.`,
-        keywords: [`Ludo game development company in ${country}, Ludo game development service in ${country}`],
+        title: `Ludo game development company in ${countryName} | Ludo Services`,
+        description: `Mobzway is Best Ludo game development company in ${countryName} offering multiplayer Ludo apps with real-time gameplay, secure wallets, and custom features.`,
+        keywords: [`Ludo game development company in ${countryName}, Ludo game development service in ${countryName}`],
+        alternates: {
+            canonical: `${baseUrl}/${countryCode}/${pageSlug}`,
+            languages: languageAlternates,
+        },
     };
 }
 
-// export const metadata = {
-//     title: "Ludo game development company in {country} | Ludo Services",
-//     description:
-//         "Mobzway is Best Ludo game development company in {country} offering multiplayer Ludo apps with real-time gameplay, secure wallets, and custom features.",
-//     keywords: ["Ludo game development company in {country}, Ludo game development service in {country}"],
-//     alternates: {
-//         canonical: "https://www.mobzway.com/bd/",
-//         languages: {
-//             "en-IN": "https://www.mobzway.com/bd/",
-//         },
-//     },
-// };
+// --- MAIN PAGE COMPONENT ---
+export default async function LudoGameDevelopment(props) {
+    const params = await props.params;
+    const countryCode = params.country || 'bd';
+    const country = countryMap[countryCode] || "Bangladesh";
 
-export default function LudoGameDevelopment() {
-    const country = getCountryName();
     return (
         <>
-
+            {/* Banner Section */}
             <section
                 className="banner pokers banner_lth position-relative banner-texas"
                 style={{
@@ -51,9 +85,9 @@ export default function LudoGameDevelopment() {
                         </a>
                     </div>
                 </div>
-
             </section>
 
+            {/* Stats Section */}
             <section className="bg-light pb-2 bg-lightnew gameplushmb">
                 <div className="container c-1">
                     <div className="row justify-content-center">
@@ -63,7 +97,7 @@ export default function LudoGameDevelopment() {
                                 <img
                                     width={40}
                                     height={40}
-                                    alt="best online rummy game app"
+                                    alt="game launched"
                                     src="/assets/images/game-launched1.avif"
                                     className="games-launched"
                                 />
@@ -76,7 +110,7 @@ export default function LudoGameDevelopment() {
                                 <img
                                     width={40}
                                     height={40}
-                                    alt="best online rummy game app"
+                                    alt="satisfied customers"
                                     src="/assets/images/satisfied-customers1.avif"
                                     className="satisfied-customers"
                                 />
@@ -89,7 +123,7 @@ export default function LudoGameDevelopment() {
                                 <img
                                     width={40}
                                     height={40}
-                                    alt="best online rummy game app"
+                                    alt="client retention"
                                     src="/assets/images/client-retension1.avif"
                                     className="client-retension"
                                 />
@@ -102,7 +136,7 @@ export default function LudoGameDevelopment() {
                                 <img
                                     width={40}
                                     height={40}
-                                    alt="best online rummy game app"
+                                    alt="players"
                                     src="/assets/images/players1.avif"
                                     className="players img-lazy"
                                 />
@@ -113,16 +147,12 @@ export default function LudoGameDevelopment() {
                 </div>
             </section>
 
-
+            {/* Intro Text */}
             <section
                 className="py-md-4 py-3"
                 style={{ background: "#f8f9fa", borderTop: "1px solid #d2d2d2" }}
             >
                 <div className="container">
-                    {/* <h1 className="sub_title text-center">
-            <span className="yellow">Mobzway – Online Gaming Software </span>{" "}
-            <span className="black">Development Company in {country}</span>
-          </h1> */}
                     <p
                         style={{ marginBottom: 15, color: "#000", fontSize: 17 }}
                         className="content"
@@ -135,14 +165,11 @@ export default function LudoGameDevelopment() {
                 </div>
             </section>
 
+            {/* Reasons Why Section */}
             <section>
-                <div className="container ">
-                    {/* <div class="heading_title text-center">
-   <h1 class="text-white"><span>WE</span> BUILD THE POKER GAME FOR ALL PLATFORMS</h1>
-   </div> */}
+                <div className="container">
                     <div className="col-md-12 text-center">
                         <div
-                            className=""
                             data-aos="fade-right"
                             data-aos-duration={1500}
                             data-aos-once="true"
@@ -154,15 +181,6 @@ export default function LudoGameDevelopment() {
                         </div>
                     </div>
 
-                    {/* <div className="col-md-12 col1 wow" data-wow-duration="1s">
-                        <p className="hire-para col-md-12 para-plateform text-center">
-                            Hiring dedicated game developers in India offers you the following benefits:
-
-                            <br />
-                            <br />
-                            <br />
-                        </p>
-                    </div> */}
                     <div className="row row1 desktopversion">
                         <div className="col-md-12 col2">
                             <div className="row">
@@ -173,7 +191,7 @@ export default function LudoGameDevelopment() {
                                     <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="User Centric UI/UX"
                                                 src="/assets/images/HTML_five-broweswer.webp"
                                                 className="wow bounceInRight new-one "
                                                 data-wow-duration="2s"
@@ -192,19 +210,18 @@ export default function LudoGameDevelopment() {
                                                 <li className='text-dark'>Very smooth animations and user-friendliness</li>
                                                 <li className='text-dark'>Designs that are mobile-optimized</li>
                                             </ul>
-                                            {/* <p className="card-text text-center text-dark">These qualities make India the best choice for companies seeking to outsource their game development.</p> */}
                                         </div>
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".4s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="Multiplayer Engine"
                                                 src="/assets/images/Native_Mobile.webp"
                                                 className="wow bounceInRight new-one"
                                                 data-wow-duration="2s"
@@ -229,14 +246,14 @@ export default function LudoGameDevelopment() {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="Secure Gameplay"
                                                 src="/assets/images/Mac_PC.webp"
                                                 style={{ width: 150 }}
                                                 className="wow bounceInRight new-one "
@@ -259,16 +276,15 @@ export default function LudoGameDevelopment() {
                                         </div>
                                     </div>
                                 </div>
-
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="White Label"
                                                 src="/assets/images/Mac_PC.webp"
                                                 style={{ width: 150 }}
                                                 className="wow bounceInRight new-one "
@@ -291,51 +307,15 @@ export default function LudoGameDevelopment() {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
-                                    data-wow-duration="2s"
-                                    data-wow-delay=".2s"
-                                >
-                                    <div className="card  plateform-card">
-                                        <div className="imgminheight">
-                                            <img
-                                                alt="best online rummy game app"
-                                                src="/assets/images/Mac_PC.webp"
-                                                style={{ width: 150 }}
-                                                className="wow bounceInRight new-one "
-                                                data-wow-duration="2s"
-                                            />
-                                        </div>
-                                        <div className="card-body">
-                                            <h5 className="card-title cards text-center">Expertise in All Game Genres</h5>
-                                            <p className="card-text text-center text-dark">
-                                                Get the right developers for your projects:
-                                            </p>
-
-                                            <ul className='why_content why_content_dark p-0 my-2'>
-                                                <li className='text-dark'>2D and 3D games</li>
-                                                <li className='text-dark'>Casual and hyper-casual games</li>
-                                                <li className='text-dark'>Real-time multiplayer games</li>
-                                                <li className='text-dark'>Fantasy sports and sports games </li>
-                                                <li className='text-dark'>Educational and simulation games</li>
-                                                <li className='text-dark'>AR/VR games</li>
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            {/* Features Section */}
             <section className="features">
                 <div className="container c-1">
-                    {/* <div class="heading_title text-center">
-   <h1><span>FEATURES</span> OF POKER GAME DEVELOPED BY US</h1>
-   </div> */}
                     <div className="col-md-12 text-center">
                         <div
                             className="aos-init"
@@ -345,9 +325,7 @@ export default function LudoGameDevelopment() {
                         >
                             <h2 className="sub_title">
                                 <span className="yellow">Custom Ludo Game </span>{" "}
-                                <span className="black">
-                                    Development Services
-                                </span>
+                                <span className="black">Development Services</span>
                             </h2>
                         </div>
                     </div>
@@ -361,6 +339,7 @@ export default function LudoGameDevelopment() {
                         </p>
                     </div>
                     <div className="row row1 row1add">
+                        {/* Ludo Classic */}
                         <div className="col-lg-4 col-md-6 col1">
                             <div className="row">
                                 <div className="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
@@ -368,7 +347,7 @@ export default function LudoGameDevelopment() {
                                         <img
                                             width={1600}
                                             height={900}
-                                            alt="Tournaments"
+                                            alt="Ludo Classic"
                                             src="/assets/images/rummy-game-development/r04.webp"
                                             className="img-lazy"
                                         />
@@ -378,12 +357,11 @@ export default function LudoGameDevelopment() {
                                     <h3 className='text-center'>Ludo Classic</h3>
                                 </div>
                                 <div className="col-md-12">
-                                    <p>
-                                        Regular game play with 2-4 players.
-                                    </p>
+                                    <p>Regular game play with 2-4 players.</p>
                                 </div>
                             </div>
                         </div>
+                        {/* Ludo Master */}
                         <div className="col-lg-4 col-md-6 col1">
                             <div className="row">
                                 <div className="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
@@ -391,7 +369,7 @@ export default function LudoGameDevelopment() {
                                         <img
                                             width={1600}
                                             height={900}
-                                            alt="Private Table"
+                                            alt="Ludo Master"
                                             src="/assets/images/rummy-game-development/r05.webp"
                                             className="img-lazy"
                                         />
@@ -401,12 +379,11 @@ export default function LudoGameDevelopment() {
                                     <h3 className='text-center'>Ludo Master</h3>
                                 </div>
                                 <div className="col-md-12">
-                                    <p>
-                                        Enhanced features, rapid modes, rewards, and premium skins.
-                                    </p>
+                                    <p>Enhanced features, rapid modes, rewards, and premium skins.</p>
                                 </div>
                             </div>
                         </div>
+                        {/* Ludo Tournament */}
                         <div className="col-lg-4 col-md-6 col1">
                             <div className="row">
                                 <div className="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
@@ -414,7 +391,7 @@ export default function LudoGameDevelopment() {
                                         <img
                                             width={1600}
                                             height={900}
-                                            alt="Multi-Language"
+                                            alt="Ludo Tournament"
                                             src="/assets/images/rummy-game-development/r06.webp"
                                             className="img-lazy"
                                         />
@@ -424,14 +401,11 @@ export default function LudoGameDevelopment() {
                                     <h3 className='text-center'>Ludo Supreme / Ludo Tournament</h3>
                                 </div>
                                 <div className="col-md-12">
-                                    <p>
-                                        Custom made for competitive play and leaderboard tournaments.
-                                    </p>
+                                    <p>Custom made for competitive play and leaderboard tournaments.</p>
                                 </div>
                             </div>
                         </div>
-
-
+                        {/* Ludo Real Money */}
                         <div className="col-lg-4 col-md-6 col1">
                             <div className="row">
                                 <div className="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
@@ -439,7 +413,7 @@ export default function LudoGameDevelopment() {
                                         <img
                                             width={1600}
                                             height={900}
-                                            alt="Multi-Language"
+                                            alt="Real Money"
                                             src="/assets/images/rummy-game-development/r06.webp"
                                             className="img-lazy"
                                         />
@@ -449,13 +423,11 @@ export default function LudoGameDevelopment() {
                                     <h3 className='text-center'>Ludo Real Money / Token Based</h3>
                                 </div>
                                 <div className="col-md-12">
-                                    <p>
-                                        Incorporate wallet, deposits, withdrawals, and secure transactions.
-                                    </p>
+                                    <p>Incorporate wallet, deposits, withdrawals, and secure transactions.</p>
                                 </div>
                             </div>
                         </div>
-
+                        {/* Voice Chat */}
                         <div className="col-lg-4 col-md-6 col1">
                             <div className="row">
                                 <div className="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
@@ -463,7 +435,7 @@ export default function LudoGameDevelopment() {
                                         <img
                                             width={1600}
                                             height={900}
-                                            alt="Multi-Language"
+                                            alt="Voice Chat"
                                             src="/assets/images/rummy-game-development/r06.webp"
                                             className="img-lazy"
                                         />
@@ -473,13 +445,11 @@ export default function LudoGameDevelopment() {
                                     <h3 className='text-center'>Ludo with Voice Chat</h3>
                                 </div>
                                 <div className="col-md-12">
-                                    <p>
-                                        A voice and chat system installed in real-time for enhanced social gaming.
-                                    </p>
+                                    <p>A voice and chat system installed in real-time for enhanced social gaming.</p>
                                 </div>
                             </div>
                         </div>
-
+                        {/* Platforms */}
                         <div className="col-lg-4 col-md-6 col1">
                             <div className="row">
                                 <div className="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
@@ -487,7 +457,7 @@ export default function LudoGameDevelopment() {
                                         <img
                                             width={1600}
                                             height={900}
-                                            alt="Multi-Language"
+                                            alt="Platforms"
                                             src="/assets/images/rummy-game-development/r06.webp"
                                             className="img-lazy"
                                         />
@@ -497,19 +467,15 @@ export default function LudoGameDevelopment() {
                                     <h3 className='text-center'>Ludo for iOS, Android & Web</h3>
                                 </div>
                                 <div className="col-md-12">
-                                    <p>
-                                        Initiate-shared platform builds with effortless syncing across devices.
-                                    </p>
+                                    <p>Initiate-shared platform builds with effortless syncing across devices.</p>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </section>
 
-
+            {/* Key Features Section */}
             <section className="mb-5 why">
                 <div className="container c-1">
                     <div className="row">
@@ -522,9 +488,7 @@ export default function LudoGameDevelopment() {
                             >
                                 <h2 className="sub_title">
                                     <span className="yellow">Key Features of Our </span>{" "}
-                                    <span className="black">
-                                        Ludo Game Development
-                                    </span>
+                                    <span className="black">Ludo Game Development</span>
                                 </h2>
                             </div>
                             <p className="text-justify">
@@ -532,62 +496,32 @@ export default function LudoGameDevelopment() {
                             </p>
                         </div>
                         <div className="col-md-6">
-                            <br />
-                            <br />
-                            <h4 className="new-head">
-                                Gameplay Features
-                            </h4>
-                            <ul
-                                style={{ listStyleType: "disc", lineHeight: '25px', margin: "0 18px" }}
-                            >
+                            <br /><br />
+                            <h4 className="new-head">Gameplay Features</h4>
+                            <ul style={{ listStyleType: "disc", lineHeight: '25px', margin: "0 18px" }}>
                                 <li><b>Multiplayer Real-Time</b> </li>
-                                <li>
-                                    <b>Invitation only table creation</b> 
-                                </li>
-                                <li>
-                                    <b>Guests Can Play as Guests & Players Login with Social Media</b>
-                                </li>
-                                <li>
-                                    <b>In-Game Store Purchases and Offerings</b>
-                                </li>
+                                <li><b>Invitation only table creation</b></li>
+                                <li><b>Guests Can Play as Guests & Players Login with Social Media</b></li>
+                                <li><b>In-Game Store Purchases and Offerings</b></li>
                                 <li><b>Daily login offers & bonuses</b> </li>
-                                <li>
-                                    <b>Leaderboard and Tournament Mode Areas</b>
-                                </li>
+                                <li><b>Leaderboard and Tournament Mode Areas</b></li>
                                 <li><b>Avatar Design Options For Each Player</b></li>
-
                             </ul>
                             <br />
-                            <h4 className="new-head">
-                                Our Admin Panel features
-                            </h4>
-
-                            <ul
-                                style={{ listStyleType: "disc", lineHeight: '25px', margin: "0 18px" }}
-                            >
+                            <h4 className="new-head">Our Admin Panel features</h4>
+                            <ul style={{ listStyleType: "disc", lineHeight: '25px', margin: "0 18px" }}>
                                 <li><b>Admin User Management</b> </li>
-                                <li>
-                                    <b>Game Settings/Control Management</b> 
-                                </li>
-                                <li>
-                                    <b>Transaction Management via Wallet Management</b>
-                                </li>
-                                <li>
-                                    <b>Bonus & Reward Credit/Management Area</b>
-                                </li>
+                                <li><b>Game Settings/Control Management</b></li>
+                                <li><b>Transaction Management via Wallet Management</b></li>
+                                <li><b>Bonus & Reward Credit/Management Area</b></li>
                                 <li><b>Agent/Sub-Agent Hierarchy Management</b> </li>
-                                <li>
-                                    <b>Analytics Reporting on Game Activity</b>
-                                </li>
-                                
-
+                                <li><b>Analytics Reporting on Game Activity</b></li>
                             </ul>
-
                         </div>
                         <div className="col-md-6 mtp pt-md-0 mt-2">
                             <div className="px-md-2">
                                 <img
-                                    alt="best online rummy game app"
+                                    alt="Why choose us"
                                     src="/assets/images/rummy-game-development/why_choose_us_rummy.webp"
                                     className="wow bounceInRight hire-image img-lazy px-md-5"
                                     data-wow-duration="2s"
@@ -601,11 +535,9 @@ export default function LudoGameDevelopment() {
                 </div>
             </section>
 
+            {/* Security Features */}
             <section className="developer">
                 <div className="container c-1">
-                    {/* <div class="heading_title text-center">
-   <h1><span>HIRE</span> POKER GAME DEVELOPER</h1>
-   </div> */}
                     <div className="col-md-12 text-center">
                         <div
                             className="aos-init"
@@ -614,38 +546,23 @@ export default function LudoGameDevelopment() {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="yellow">Our Security  </span>{" "}
+                                <span className="yellow">Our Security </span>{" "}
                                 <span className="black">features include the following</span>
-                                {/*2*/}
                             </h2>
-                            {/* <p>The way we hire is as easy as it is transparent!</p> */}
                         </div>
                     </div>
                     <div className="row row1">
                         <div
                             className="col-md-6 col1 wow bounceInUp"
                             data-wow-duration="2s"
-                            style={{
-                                visibility: "visible",
-                                animationDuration: "2s",
-                                animationName: "none"
-                            }}
+                            style={{ visibility: "visible", animationDuration: "2s", animationName: "none" }}
                         >
                             <p className="hire-para">
-                                <b>RNG Certified</b>
-                                <br />
-                                <br />
-                                <b>Cheating Prevention Algorithm</b>
-                                <br />
-                                <br />
-                                <b>Restricted SSL Data</b> 
-                                <br />
-                                <br />
-                                <b>Bot Protected Environment:</b> 
-                                <br />
-                                <br />
-                                <b>Security Features That Secure Players From Fraudulent Transactions:</b> 
-
+                                <b>RNG Certified</b><br /><br />
+                                <b>Cheating Prevention Algorithm</b><br /><br />
+                                <b>Restricted SSL Data</b><br /><br />
+                                <b>Bot Protected Environment:</b><br /><br />
+                                <b>Security Features That Secure Players From Fraudulent Transactions:</b>
                             </p>
                             <div className="btn_outer my-bt">
                                 <a
@@ -662,7 +579,7 @@ export default function LudoGameDevelopment() {
                             <img
                                 width={1600}
                                 height={900}
-                                alt="best online rummy game app"
+                                alt="Security"
                                 src="/assets/images/rummy-game-development/hire-rummy-game-developer.webp"
                                 className="wow bounceInRight hire-image img-lazy m-0 px-md-5"
                                 data-wow-duration="2s"
@@ -673,9 +590,9 @@ export default function LudoGameDevelopment() {
                 </div>
             </section>
 
-
+            {/* Tech Stack */}
             <section>
-                <div className="container ">
+                <div className="container">
                     <div className="col-md-12 text-center">
                         <div
                             className=""
@@ -685,24 +602,14 @@ export default function LudoGameDevelopment() {
                         >
                             <h2 className="sub_title">
                                 <span className="yellow">A Complete Technology Stack To </span>{" "}
-                                <span className="black">
-                                    {" "}
-                                    Create Our Ludo Game includes
-                                </span>
+                                <span className="black">Create Our Ludo Game includes</span>
                             </h2>
                         </div>
-                    </div>
-                    <div className="col-md-12 col1 wow" data-wow-duration="1s">
-                        <p className="hire-para col-md-12 para-plateform text-center">
-                            {/* The following are the technologies our developers utilize to develop games:
-
-                            <br />
-                            <br /> */}
-                        </p>
                     </div>
                     <div className="row row1 desktopversion">
                         <div className="col-md-12 col2">
                             <div className="row">
+                                {/* Front End */}
                                 <div
                                     className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
@@ -710,56 +617,49 @@ export default function LudoGameDevelopment() {
                                     <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="Front End"
                                                 src="/assets/images/1-01.png"
                                                 className="wow bounceInRight new-one "
                                                 data-wow-duration="2s"
                                             />
                                         </div>
                                         <div className="card-body">
-                                            <h5 className="card-title cards text-center">
-                                                Front End Development   
-                                            </h5>
-                                            <p className="card-text text-center text-dark">
-                                                Unity3D & Cocos2D & HTML5
-                                            </p>
+                                            <h5 className="card-title cards text-center">Front End Development</h5>
+                                            <p className="card-text text-center text-dark">Unity3D & Cocos2D & HTML5</p>
                                         </div>
                                     </div>
                                 </div>
+                                {/* Back End */}
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".4s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="Back End"
                                                 src="/assets/images/02-01.png"
                                                 className="wow bounceInRight new-one"
                                                 data-wow-duration="2s"
                                             />
                                         </div>
                                         <div className="card-body">
-                                            <h5 className="card-title cards text-center">
-                                                Back End Development
-                                            </h5>
-                                            <p className="card-text text-center text-dark">
-                                                {" "}
-                                                 Node.js, PHP & Java
-                                            </p>
+                                            <h5 className="card-title cards text-center">Back End Development</h5>
+                                            <p className="card-text text-center text-dark">Node.js, PHP & Java</p>
                                         </div>
                                     </div>
                                 </div>
+                                {/* Database */}
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="Database"
                                                 src="/assets/images/3-01.png"
                                                 className="wow bounceInRight new-one "
                                                 data-wow-duration="2s"
@@ -767,23 +667,20 @@ export default function LudoGameDevelopment() {
                                         </div>
                                         <div className="card-body">
                                             <h5 className="card-title cards text-center">Database Development</h5>
-                                            <p className="card-text text-center text-dark">
-                                                {" "}
-                                                MongoDB & MySQL
-                                            </p>
+                                            <p className="card-text text-center text-dark">MongoDB & MySQL</p>
                                         </div>
                                     </div>
                                 </div>
-
+                                {/* Real-time Engine */}
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="Real Time"
                                                 src="/assets/images/3-01.png"
                                                 className="wow bounceInRight new-one "
                                                 data-wow-duration="2s"
@@ -791,23 +688,20 @@ export default function LudoGameDevelopment() {
                                         </div>
                                         <div className="card-body">
                                             <h5 className="card-title cards text-center">Real-Time Engine</h5>
-                                            <p className="card-text text-center text-dark">
-                                                {" "}
-                                                Socket.io & Photon & WebRTC
-                                            </p>
+                                            <p className="card-text text-center text-dark">Socket.io & Photon & WebRTC</p>
                                         </div>
                                     </div>
                                 </div>
-
+                                {/* Platforms */}
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5 wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card plateform-card">
                                         <div className="imgminheight">
                                             <img
-                                                alt="best online rummy game app"
+                                                alt="Platforms"
                                                 src="/assets/images/3-01.png"
                                                 className="wow bounceInRight new-one "
                                                 data-wow-duration="2s"
@@ -815,10 +709,6 @@ export default function LudoGameDevelopment() {
                                         </div>
                                         <div className="card-body">
                                             <h5 className="card-title cards text-center">For Development on Platforms Android & iOS & Web & PWA</h5>
-                                            {/* <p className="card-text text-center text-dark">
-                                                {" "}
-                                                Photon, SmartFox, Mirror, and WebRTC
-                                            </p> */}
                                         </div>
                                     </div>
                                 </div>
@@ -828,11 +718,9 @@ export default function LudoGameDevelopment() {
                 </div>
             </section>
 
+            {/* SOLUTIONS SECTION (WITH IMAGE FIX) */}
             <section className="solutions">
                 <div className="container c-1">
-                    {/* <div class="heading_title text-center">
-   <h1><span>ONLINE</span> POKER GAME DEVELOPMENT SOLUTIONS</h1>
-   </div> */}
                     <div className="col-md-12 text-center">
                         <div
                             className="aos-init"
@@ -846,19 +734,21 @@ export default function LudoGameDevelopment() {
                             </h2>
                         </div>
                     </div>
-                    <div className="row row1">
-                        <div className="col-md-6 col1">
+                    <div className="row row1 align-items-center">
+                        <div className="col-md-6 col1 text-center">
+                            {/* IMAGE FIX APPLIED HERE */}
                             <img
-                                width={1600}
-                                height={900}
-                                data-original="rummy game app development company"
+                                alt="Mobile Friendly Ludo Game"
                                 src="/assets/images/rummy-game-development/rummy-game-development-solutions 1.webp"
-                                className="wow bounceInLeft  my-image img-lazy"
+                                className="wow bounceInLeft my-image img-lazy"
                                 data-wow-duration="2s"
                                 style={{
                                     visibility: "visible",
                                     animationDuration: "2s",
-                                    animationName: "none"
+                                    animationName: "none",
+                                    maxWidth: "100%",  // Ensures it doesn't overflow
+                                    width: "450px",    // Restricts width like your screenshot
+                                    height: "auto"     // Maintains aspect ratio
                                 }}
                             />
                         </div>
@@ -873,32 +763,25 @@ export default function LudoGameDevelopment() {
                         >
                             <p className="para-1">
                                 The majority of gamers in {country} access their games through mobile devices; therefore, our Ludo applications introduce:
-                                <br />
-                                <br />
+                                <br /><br />
                                 Super fast load time
-
-                                <br />
-                                <br />
+                                <br /><br />
                                 Minimized architecture
-                                <br />
-                                <br />
+                                <br /><br />
                                 Uniform operations on all devices
-                                <br />
-                                <br />
+                                <br /><br />
                                 Nice themes & animations
-                                <br />
-                                <br />
+                                <br /><br />
                                 User-friendly interface
-                                <br />
-                                <br />
+                                <br /><br />
                                 Our games work perfectly even on slow internet connections.
                             </p>
-
                         </div>
                     </div>
                 </div>
             </section>
 
+            {/* Testimonials */}
             <section className="testimonial text-center bg-light">
                 <div className="container c-1">
                     <div className="col-md-12 text-center">
@@ -925,12 +808,7 @@ export default function LudoGameDevelopment() {
                                         reservations.
                                     </p>
                                     <h4 className="text-dark">SAUL Smiket</h4>
-                                    <p
-                                        className="text-center text-dark"
-                                        style={{ marginTop: 10, fontWeight: 700 }}
-                                    >
-                                        USA
-                                    </p>
+                                    <p className="text-center text-dark" style={{ marginTop: 10, fontWeight: 700 }}>USA</p>
                                 </div>
                             </div>
                             <div className="carousel-item active">
@@ -942,12 +820,7 @@ export default function LudoGameDevelopment() {
                                         product.
                                     </p>
                                     <h4 className="text-dark">Bernad jones</h4>
-                                    <p
-                                        className="text-center text-dark"
-                                        style={{ marginTop: 10, fontWeight: 700 }}
-                                    >
-                                        Germany
-                                    </p>
+                                    <p className="text-center text-dark" style={{ marginTop: 10, fontWeight: 700 }}>Germany</p>
                                 </div>
                             </div>
                             <div className="carousel-item">
@@ -959,78 +832,24 @@ export default function LudoGameDevelopment() {
                                         handed over my project within the stipulated time.
                                     </p>
                                     <h4 className="text-dark">Piter</h4>
-                                    <p
-                                        className="text-center text-dark"
-                                        style={{ marginTop: 10, fontWeight: 700 }}
-                                    >
-                                        Australia
-                                    </p>
+                                    <p className="text-center text-dark" style={{ marginTop: 10, fontWeight: 700 }}>Australia</p>
                                 </div>
                             </div>
                         </div>
-                        <a
-                            className="carousel-control-prev"
-                            href="#testimonial4"
-                            data-slide="prev"
-                        >
-                            <span className="carousel-control-prev-icon">
-                                <i className="fas fa-angle-left" />
-                            </span>
+                        <a className="carousel-control-prev" href="#testimonial4" data-slide="prev">
+                            <span className="carousel-control-prev-icon"><i className="fas fa-angle-left" /></span>
                         </a>
-                        <a
-                            className="carousel-control-next"
-                            href="#testimonial4"
-                            data-slide="next"
-                        >
-                            <span className="carousel-control-next-icon">
-                                <i className="fas fa-angle-right" />
-                            </span>
+                        <a className="carousel-control-next" href="#testimonial4" data-slide="next">
+                            <span className="carousel-control-next-icon"><i className="fas fa-angle-right" /></span>
                         </a>
                     </div>
-                    <div className="row upwork">
-                        <div className="col-md-3 col-6 mt-5"> </div>
-                        <div className="col-md-3 col-6 mt-5"> </div>
-                        <div className="col-md-3 col-6 mt-5"> </div>
-                        <div className="col-md-3 col-6 mt-5"> </div>
-                    </div>
-                    <div className="row other-icon">
-                        <div className="col-md-4 col-4 mt-5">
-                            {" "}
-                            <img
-                                width={1600}
-                                height={900}
-                                src="/assets/images/rummy-game-development/softwaresuggest.webp"
-                                className=" hire-image icons img-lazy"
-                            />{" "}
-                        </div>
-                        <div className="col-md-4 col-4 mt-5">
-                            {" "}
-                            <img
-                                width={1600}
-                                height={900}
-                                src="/assets/images/rummy-game-development/topmobileappdevelopers.webp"
-                                className=" hire-image icons img-lazy"
-                            />{" "}
-                        </div>
-                        <div className="col-md-4 col-4 mt-5">
-                            {" "}
-                            <img
-                                width={1600}
-                                height={900}
-                                src="/assets/images/rummy-game-development/capterra.webp"
-                                className=" hire-image icons img-lazy"
-                            />{" "}
-                        </div>
-                    </div>
+                    {/* Other icons/logos can go here */}
                 </div>
             </section>
 
-
+            {/* Hire Developer Section */}
             <section className="developer">
                 <div className="container">
-                    {/* <div class="heading_title text-center">
-              <h1><span>HIRE</span> POKER GAME DEVELOPER</h1>
-          </div> */}
                     <div className="col-md-12 text-center">
                         <div
                             className=""
@@ -1041,7 +860,6 @@ export default function LudoGameDevelopment() {
                             <h2 className="sub_title">
                                 <span className="yellow">Hire Dedicated </span>{" "}
                                 <span className="black">Ludo Game Developers in {country}</span>
-                                {/*2*/}
                             </h2>
                         </div>
                     </div>
@@ -1049,24 +867,17 @@ export default function LudoGameDevelopment() {
                         <div className="col-md-6 col1 wow bounceInUp" data-wow-duration="2s">
                             <p className="hire-para">
                                 Do you need qualified developers for a long-term project?
-                                <br />
-                                <br />
-                                Our dedicated Ludo developers are assigned to you who will be working solely according to your needs. 
-                                <br />
-                                <br />
-                                {/* <b> Here’s why our clients love hiring Mobzway’s Ludo game developers:</b><br><br> */}
+                                <br /><br />
+                                Our dedicated Ludo developers are assigned to you who will be working solely according to your needs.
+                                <br /><br />
                                 <b>Advantages:</b>
-                                <br />
-                                <br />
+                                <br /><br />
                                 <b>Total allocation of the developer </b>
-                                <br />
-                                <br />
+                                <br /><br />
                                 <b>Direct communication</b>
-                                <br/>
-                                <br/>
+                                <br /><br />
                                 <b>Faster development cycle</b>
-                                <br/>
-                                <br/>
+                                <br /><br />
                                 <b>Engagement patterns of monthly or hourly basi</b>
                             </p>
                             <div className="btn_outer">
@@ -1092,6 +903,7 @@ export default function LudoGameDevelopment() {
                 </div>
             </section>
 
+            {/* Final CTA */}
             <section className="get_in-touch get ">
                 <div className="container c-1">
                     <div className="col-md-12 text-center">
@@ -1102,7 +914,7 @@ export default function LudoGameDevelopment() {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="black_bg_head_yellow">Start your Ludo  </span>{" "}
+                                <span className="black_bg_head_yellow">Start your Ludo </span>{" "}
                                 <span className="black_bg_head_white">
                                     game in {country} today!
                                 </span>
@@ -1117,18 +929,11 @@ export default function LudoGameDevelopment() {
                                 paddingBottom: 50,
                                 width: "80%",
                                 margin: "auto",
-                                fontSize: "1.30rem !important"
+                                fontSize: "1.30rem"
                             }}
                         >
                             Mobzway provides not only the best but also the most secure and tailored Ludo game solutions that would trigger your quick scaling and maximize ROI whether you are creating a basic Ludo app or a full-blown multiplayer Ludo gaming universe.
                         </h3>
-
-                        {/* <span className='text-white bg-transparent p-0 d-block'>Click to get demo access</span>
-                        <span className='text-white bg-transparent p-0 d-block' style={{fontSize:'18px'}}>Request pricing
-                        </span>
-                        <span className='text-white bg-transparent p-0 d-block' style={{fontSize:'18px'}}>Hire Ludo developers</span>
-                        <span className='text-white bg-transparent p-0 d-block' style={{fontSize:'18px'}}>Get a free consultation </span> */}
-
                     </div>
                     <div className="text-center">
                         <button className="btn" data-toggle="modal" data-target="#requestQoute">
@@ -1137,7 +942,6 @@ export default function LudoGameDevelopment() {
                     </div>
                 </div>
             </section>
-
         </>
     )
 }

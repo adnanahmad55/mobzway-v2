@@ -1,19 +1,66 @@
-import React from 'react'
+import React from 'react';
 
-export const metadata = {
-    title: "Sportsbook software development company in Bangladesh",
-    description:
-        "Top sportsbook software development company in Bangladesh offering secure betting platforms, odds engines, risk management, and real-time data solutions.",
-    keywords: ["Sportsbook software development company in Bangladesh"],
-    alternates: {
-        canonical: "https://www.mobzway.com/bd/",
-        languages: {
-            "en-IN": "https://www.mobzway.com/bd/",
-        },
-    },
+// 1. CONFIGURATION: Country Names Mapping
+const countryMap = {
+    in: "India",
+    bd: "Bangladesh",
+    uk: "United Kingdom",
+    us: "USA",
+    ae: "UAE",
+    africa: "Africa",
+    asia: "Asia",
+    default: "Global"
 };
 
-export default function SportsbookSoftwareDevelopment() {
+// 2. CONFIGURATION: Hreflang Codes (SEO Fix)
+const countryLocales = {
+    in: "en-IN",
+    bd: "en-BD",
+    uk: "en-GB",
+    us: "en-US",
+    ae: "en-AE",
+    asia: "en-asia",
+    africa: "en-africa",
+    default: "x-default"
+};
+
+// --- DYNAMIC METADATA (SEO & HREFLANG FIX) ---
+export async function generateMetadata(props) {
+    const params = await props.params;
+    const countryCode = params.country || 'bd';
+    const countryName = countryMap[countryCode] || "Bangladesh";
+
+    // URL Logic
+    const baseUrl = "https://www.mobzway.com";
+    const pageSlug = "sportsbook-software-development";
+
+    // Auto-generate Hreflang tags
+    const languageAlternates = {};
+    Object.keys(countryLocales).forEach((code) => {
+        if (code !== 'default') {
+            languageAlternates[countryLocales[code]] = `${baseUrl}/${code}/${pageSlug}`;
+        }
+    });
+    languageAlternates['x-default'] = `${baseUrl}/${pageSlug}`;
+
+    return {
+        title: `Sportsbook software development company in ${countryName}`,
+        description: `Top sportsbook software development company in ${countryName} offering secure betting platforms, odds engines, risk management, and real-time data solutions.`,
+        keywords: [`Sportsbook software development company in ${countryName}`],
+        alternates: {
+            canonical: `${baseUrl}/${countryCode}/${pageSlug}`,
+            languages: languageAlternates,
+        },
+    };
+}
+
+
+export default async function SportsbookSoftwareDevelopment(props) {
+    const params = await props.params;
+    const countryCode = params.country || 'bd';
+   
+    const countryName = countryMap[countryCode] || "Bangladesh";
+
     return (
         <>
 
@@ -26,7 +73,7 @@ export default function SportsbookSoftwareDevelopment() {
                 <div className="overlay" />
                 <div className="wel_come_container">
                     <h1 className="welcome_text wel">
-                        Sportsbook software development company in Bangladesh
+                        Sportsbook software development company in {countryName}
                     </h1>
 
                     <div className="btn_outer">
@@ -109,13 +156,13 @@ export default function SportsbookSoftwareDevelopment() {
                 <div className="container">
                     {/* <h1 className="sub_title text-center">
             <span className="yellow">Mobzway – Online Gaming Software </span>{" "}
-            <span className="black">Development Company in Bangladesh</span>
+            <span className="black">Development Company in {countryName}</span>
           </h1> */}
                     <p
                         style={{ marginBottom: 15, color: "#000", fontSize: 17 }}
                         className="content"
                     >
-                        Are you looking for a reputable Sportsbook software development company in Bangladesh to assist you? Mobzway provides an entirely flexible and robust Sportsbook software development service in Bangladesh marketplace, for businesses looking to grow or create their Sportsbook business.
+                        Are you looking for a reputable Sportsbook software development company in {countryName} to assist you? Mobzway provides an entirely flexible and robust Sportsbook software development service in {countryName} marketplace, for businesses looking to grow or create their Sportsbook business.
                     </p>
                     <p className="content" style={{ marginBottom: 15, color: "#000", fontSize: 17 }}>
                         Whether you’re looking for a White Label product, Custom-built Software, or complete Mobile Development Team, we provide the technology & experience to provide you with everything based on today’s local and global betting practices.
@@ -140,8 +187,8 @@ export default function SportsbookSoftwareDevelopment() {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="yellow">Why Choose Mobzway as your Preferred Sportsbook Software  </span>{" "}
-                                <span className="black"> Development Company in Bangladesh?</span>
+                                <span className="yellow">Why Choose Mobzway as your Preferred Sportsbook Software  </span>{" "}
+                                <span className="black"> Development Company in {countryName}?</span>
                             </h2>
                         </div>
                     </div>
@@ -190,11 +237,11 @@ export default function SportsbookSoftwareDevelopment() {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".4s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -208,7 +255,7 @@ export default function SportsbookSoftwareDevelopment() {
                                                 Full-service Sportsbook Development
                                             </h5>
                                             <p className="card-text text-center text-dark">
-                                                Mobzway's complete Sportsbook software development solutions in Bangladesh include the following components:
+                                                Mobzway's complete Sportsbook software development solutions in {countryName} include the following components:
                                             </p>
                                             <ul className='why_content why_content_dark p-0 my-2'>
                                                 <li className='text-dark'>Odds & Risk Management System</li>
@@ -224,11 +271,11 @@ export default function SportsbookSoftwareDevelopment() {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -241,7 +288,7 @@ export default function SportsbookSoftwareDevelopment() {
                                         <div className="card-body">
                                             <h5 className="card-title cards text-center">A customizable and scalable sportsbook platform</h5>
                                             <p className="card-text text-center text-dark">
-                                                When using our Bangladesh-ready sportsbook platform, you will customize the following:
+                                                When using our {countryName}-ready sportsbook platform, you will customize the following:
                                             </p>
                                             <ul className='why_content why_content_dark p-0 my-2'>
                                                 <li className='text-dark'>UI/UX design</li>
@@ -256,11 +303,11 @@ export default function SportsbookSoftwareDevelopment() {
                                 </div>
 
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -307,7 +354,7 @@ export default function SportsbookSoftwareDevelopment() {
                             <h2 className="sub_title">
                                 <span className="yellow">Key Features of Our Sportsbook </span>{" "}
                                 <span className="black">
-                                    Software in Bangladesh
+                                    Software in {countryName}
                                 </span>
                             </h2>
                         </div>
@@ -412,11 +459,11 @@ export default function SportsbookSoftwareDevelopment() {
                                     <p>
                                         We provide a wide variety of payment options, including:
                                     </p>
-                                    <p>Local payment gateways that are friendly to Bangladeshi operators.
+                                    <p>Local payment gateways that are friendly to operators in {countryName}.
                                         E-wallets,
                                         Crypto wallets (optional),
                                         Instant withdrawal modules,
-                                        In Bangladesh, we have a very established payment processing environment, in order to give you the highest level of assurance regarding your players’ deposits and withdrawals</p>
+                                        In {countryName}, we have a very established payment processing environment, in order to give you the highest level of assurance regarding your players’ deposits and withdrawals</p>
                                 </div>
                             </div>
                         </div>
@@ -439,7 +486,7 @@ export default function SportsbookSoftwareDevelopment() {
                                 </div>
                                 <div className="col-md-12">
                                     <p>
-                                        Ideal for operators within Bangladesh who use a hierarchical distribution model.
+                                        Ideal for operators within {countryName} who use a hierarchical distribution model.
                                     </p>
                                 </div>
                             </div>
@@ -512,7 +559,7 @@ export default function SportsbookSoftwareDevelopment() {
                                 <h2 className="sub_title">
                                     <span className="yellow">Tech Stack Used for </span>{" "}
                                     <span className="black">
-                                        Sportsbook Software in Bangladesh
+                                        Sportsbook Software in {countryName}
                                     </span>
                                 </h2>
                             </div>
@@ -539,7 +586,7 @@ export default function SportsbookSoftwareDevelopment() {
                                 <li>
                                     <b>Server:</b> AWS, Google Cloud, Azure
                                 </li>
-                                <li><b>Real-Time Engines:</b>  WebSocket, Socket.io, WebRTC</li>
+                                <li><b>Real-Time Engines:</b>  WebSocket, Socket.io, WebRTC</li>
                                 <li>
                                     <b>Security:</b> AES/SSL encryption, IP blocking, tokenized sessions.
                                 </li>
@@ -577,7 +624,7 @@ export default function SportsbookSoftwareDevelopment() {
                         >
                             <h2 className="sub_title">
                                 <span className="yellow">Sports Covered in Our </span>{" "}
-                                <span className="black">Bangladesh-Ready Platform</span>
+                                <span className="black">{countryName}-Ready Platform</span>
                                 {/*2*/}
                             </h2>
                             <p>We provide odds & markets on:</p>
@@ -664,7 +711,7 @@ export default function SportsbookSoftwareDevelopment() {
                                 <span className="yellow">Custom Sportsbook Development</span>{" "}
                                 <span className="black">
                                     {" "}
-                                    Services in Bangladesh
+                                    Services in {countryName}
                                 </span>
                             </h2>
                         </div>
@@ -704,11 +751,11 @@ export default function SportsbookSoftwareDevelopment() {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".4s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -729,11 +776,11 @@ export default function SportsbookSoftwareDevelopment() {
                                     </div>
                                 </div>
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -758,11 +805,11 @@ export default function SportsbookSoftwareDevelopment() {
                                 </div>
 
                                 <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -782,11 +829,11 @@ export default function SportsbookSoftwareDevelopment() {
                                 </div>
 
                                 {/* <div
-                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
+                                    className="col-lg-4 col-md-6 col21 mb-5  wow bounceInRight"
                                     data-wow-duration="2s"
                                     data-wow-delay=".2s"
                                 >
-                                    <div className="card  plateform-card">
+                                    <div className="card  plateform-card">
                                         <div className="imgminheight">
                                             <img
                                                 alt="best online rummy game app"
@@ -811,11 +858,8 @@ export default function SportsbookSoftwareDevelopment() {
                 </div>
             </section>
 
-            <section className="solutions">
+<section className="solutions">
                 <div className="container c-1">
-                    {/* <div class="heading_title text-center">
-   <h1><span>ONLINE</span> POKER GAME DEVELOPMENT SOLUTIONS</h1>
-   </div> */}
                     <div className="col-md-12 text-center">
                         <div
                             className="aos-init"
@@ -824,24 +868,25 @@ export default function SportsbookSoftwareDevelopment() {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="yellow">Bangladesh Operators' </span>{" "}
+                                <span className="yellow">{countryName} Operators' </span>{" "}
                                 <span className="black"> Reason to Choose Mobzway</span>
                             </h2>
                         </div>
                     </div>
-                    <div className="row row1">
-                        <div className="col-md-6 col1">
+                    <div className="row row1 align-items-center">
+                        <div className="col-md-6 col1 text-center">
                             <img
-                                width={1600}
-                                height={900}
-                                data-original="rummy game app development company"
+                                alt="Reason to choose Mobzway"
                                 src="/assets/images/rummy-game-development/rummy-game-development-solutions 1.webp"
-                                className="wow bounceInLeft  my-image img-lazy"
+                                className="wow bounceInLeft my-image img-lazy"
                                 data-wow-duration="2s"
                                 style={{
                                     visibility: "visible",
                                     animationDuration: "2s",
-                                    animationName: "none"
+                                    animationName: "none",
+                                    maxWidth: "100%",   // Ensures it doesn't overflow
+                                    width: "450px",     // Limits width to match design
+                                    height: "auto"      // Maintains aspect ratio
                                 }}
                             />
                         </div>
@@ -856,35 +901,28 @@ export default function SportsbookSoftwareDevelopment() {
                         >
                             <p className="para-1">
                                 Over a decade of gaming tech experience
-
                                 <br />
                                 <br />
                                 Completely customizable platform
-
                                 <br />
                                 <br />
                                 Robust security posture
-
                                 <br />
                                 <br />
                                 Cost effective pricing models
-
                                 <br />
                                 <br />
                                 Team of support available full-time
-
                                 <br />
                                 <br />
                                 Quick rolling out and upgrades
-
                                 <br />
                                 <br />
                                 Legally supporting infrastructures
                                 <br />
                                 <br />
-                                No matter if you are a long-time operator or a startup, our sportsbook software in Bangladesh is your partner for profitable and sustainable growth.
+                                No matter if you are a long-time operator or a startup, our sportsbook software in {countryName} is your partner for profitable and sustainable growth.
                             </p>
-
                         </div>
                     </div>
                 </div>
@@ -1026,9 +1064,9 @@ export default function SportsbookSoftwareDevelopment() {
                             data-aos-once="true"
                         >
                             <h2 className="sub_title">
-                                <span className="black_bg_head_yellow">Start your Sportsbook  </span>{" "}
+                                <span className="black_bg_head_yellow">Start your Sportsbook  </span>{" "}
                                 <span className="black_bg_head_white">
-                                    Business in Bangladesh Now
+                                    Business in {countryName} Now
                                 </span>
                             </h2>
                         </div>
@@ -1044,15 +1082,15 @@ export default function SportsbookSoftwareDevelopment() {
                                 fontSize: "1.30rem !important"
                             }}
                         >
-                            If you are looking for Sportsbook Software Development Company in Bangladesh, you are at the right place. Mobzway will create you a rich in features, safe and profit-making sportsbook platform designed for Bangladesh.
+                            If you are looking for Sportsbook Software Development Company in {countryName}, you are at the right place. Mobzway will create you a rich in features, safe and profit-making sportsbook platform designed for {countryName}.
                         </h3>
                         <span className='text-white bg-transparent p-0 d-block'>Get in touch with us to receive:</span>
-                        <span className='text-white bg-transparent p-0 d-block' style={{fontSize:'18px'}}>Access to demo, 
-                            Information about prices, 
-                            List of features, 
+                        <span className='text-white bg-transparent p-0 d-block' style={{ fontSize: '18px' }}>Access to demo,
+                            Information about prices,
+                            List of features,
                             Options for hiring developers
                         </span>
-                        <span className='text-white bg-transparent p-0 d-block' style={{fontSize:'18px'}}>Let’s create together your next generation of sports betting platform with Mobzway, one of the best Sportsbook Software Development Company in Bangladesh!</span>
+                        <span className='text-white bg-transparent p-0 d-block' style={{ fontSize: '18px' }}>Let’s create together your next generation of sports betting platform with Mobzway, one of the best Sportsbook Software Development Company in {countryName}!</span>
                     </div>
                     <div className="text-center mt-3">
                         <button className="btn" data-toggle="modal" data-target="#requestQoute">
